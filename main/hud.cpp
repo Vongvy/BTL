@@ -123,33 +123,47 @@ void HUD::renderStartingScreen(){
     this->drawText(whiteFontTexture, "PRESS SPACE TO CONTINUE", 300, 570, 8, 8, 2.0f, HUD_FLOAT_LEFT);
 }
 
-void HUD::renderInstructions(){
+void HUD::renderInstructions() {
     this->drawFadeOverlay(80);
     this->drawFadeOverlay(80);
+
     this->drawText(whiteFontTexture, "HOW TO PLAY?", 315, 25, 8, 8, 3.2f, HUD_FLOAT_LEFT);
     this->drawText(whiteFontTexture, "PRESS SPACE TO CONTINUE", 300, 570, 8, 8, 2.0f, HUD_FLOAT_LEFT);
+
     SDL_Rect box, paraRect;
 
-    box = {220, 60, 460, 500};
+    // Pick section
+    box = {220, 60, 460, 190};
     gwin->blit(frameTexture, box);
 
     int x = 240;
     int y = 90;
-    for (int i = 0; i < 2; i++) {
-        box = {x, y, 420, 220};
-        SDL_SetRenderDrawColor(this->gwin->gRenderer, 222, 159, 71, 255);
-        if (i < 1) SDL_RenderDrawLine(this->gwin->gRenderer, box.x, box.y + box.h, box.x + box.w, box.y + box.h);
-        this->drawText(
-            plainWhiteFontTexture,
-            "Cach di chuyen",
-            260, y + 15, 16, 16, 1.2f
-        );
 
-        paraRect = {260, y + 40, 380, 90};
-        this->drawParagraph("Dung chuot de di chuyen", paraRect, plainBlackFontTexture, 6, 12, 2);
-        y += box.h;
-    }
+    this->drawText(
+        plainWhiteFontTexture,
+        "PICK",
+        x, y, 16, 16, 1.2f
+    );
+    paraRect = {x, y + 40, 380, 90};
+    this->drawParagraph("Move the car with your mouse, try to get as much money as possible. The further you travel, the more money you earn.",
+        paraRect, plainBlackFontTexture, 6, 12, 2);
+
+    // Dodge section
+    box = {220, 270, 460, 190};
+    gwin->blit(frameTexture, box);
+
+    y += 220; // chuyển xuống dưới
+
+    this->drawText(
+        plainWhiteFontTexture,
+        "DODGE",
+        x, y, 16, 16, 1.2f
+    );
+    paraRect = {x, y + 40, 380, 90};
+    this->drawParagraph("Try not hit any obstacles on the road. The game will stop after being hit 5 times.",
+        paraRect, plainBlackFontTexture, 6, 12, 2);
 }
+
 
 void HUD::renderDifficultyScreen(){
     this->drawFadeOverlay(75);
